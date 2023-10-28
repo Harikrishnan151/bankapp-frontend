@@ -1,0 +1,91 @@
+<!-- navbar -->
+<nav style="background-color: #0062A8;" class="navbar ">
+  <div class="container-fluid">
+
+    <a class="navbar-brand" href="#">
+      <!-- <img style="width: 60px; height: 55px; padding-bottom: 10px;" src="https://thumbs.dreamstime.com/b/bank-icon-mobile-web-apps-banking-investment-concept-bank-icon-mobile-web-apps-banking-investment-concept-flat-style-105518886.jpg "
+        alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+        <span  class="icons mx-2">BankApp</span>  -->
+        <a class="navbar-brand" href="#"><img style="height: 70px; padding-top:1px;" src="https://logos-download.com/wp-content/uploads/2016/06/Yes_Bank_logo.png" alt=""> </a>
+    </a>
+  </div>
+</nav>
+
+<!-- login home -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <img style="margin-left: 50px;" width="500px" height="500px" src="https://rurutek.com/jio/assets/img/login-animate.gif" alt="">
+    </div>
+    <div class=" card col-6 my-5">
+      <form (ngSubmit)="login()" [formGroup]="loginForm">
+      <h3 style="font-weight: 900; color: #0062A8;" class="text-center mt-4 ">Login Here</h3>
+      <div class="my-5 mt-3">
+        <label for="exampleInputEmail1" class="form-label">Account Number</label>
+        <input name="acno" formControlName="acno" type="email" class="form-control" id="exampleInputaccountnumber"
+          aria-describedby="emailHelp">
+          <div *ngIf="this.loginForm.get('acno')?.errors&&this.loginForm.get('acno')?.touched" class="text-danger">*invalid Account number</div>
+      </div>
+      <div class="">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input name="password" formControlName="password" type="password" class="form-control"
+          id="exampleInputPassword1">
+          <div *ngIf="this.loginForm.get('password')?.errors&&this.loginForm.get('password')?.touched" class="text-danger">*invalid Password</div>
+      </div>
+      <div class="mb-2 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+      <div style="margin-left: 180px;">
+      <h5 class="text-danger"><b>{{loginError}}</b></h5>
+      <button style="font-weight: 700;" type="submit" class="btn btn-primary">Sign in <div *ngIf="loginSuccuss" class="spinner-border text-info" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div></button>
+    </div>
+      <div class="reg">
+        <span>Don't have a account?</span><span class="re"><a routerLink="register">Register now</a></span>
+        
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<!-- footer -->
+
+<footer   class=" text-center text-white" style="background-color: #0062A8;">
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+
+      <!-- Twitter -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+
+      <!-- Google -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+
+      <!-- Instagram -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+
+      <!-- Linkedin -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+
+      <!-- Github -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
+      <!-- <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a> -->
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2023 Copyright:
+    <a class="text-white" href="https://mdbootstrap.com/">Yesbank.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>

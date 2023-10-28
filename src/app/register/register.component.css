@@ -1,0 +1,38 @@
+*{
+    font-weight: 900;
+}
+.card{
+    width: 450px;
+    padding: 20px;
+    border: 2px solid black;
+    transform: scale3d(1.1);
+}
+label{
+    font-weight: 900;
+}
+h3{
+    font-weight: 900;
+}
+.reg a{
+    color: #00ADEF;
+    text-decoration: none;
+    margin-left: -5px;
+   
+}
+.reg{
+    margin-top: 18px;
+    padding: 2px;
+    margin-left: 54px;
+}
+.reg span{
+    margin-left: 10px;
+    font-weight: 500;
+    font-weight: 600;
+}
+.icons{
+    font-size: 30px;
+    font-weight: 600;
+    color: white;
+    /* padding-top: 10px; */
+    font-family: 'Noto Sans Vithkuqi', sans-serif;
+}

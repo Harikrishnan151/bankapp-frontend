@@ -1,0 +1,304 @@
+<app-delete-acno [deleteAcno]="acno" (onCancel)="cancelDeleteConfirm()" (onDelete)="deleteFromParent()"></app-delete-acno>
+
+
+<div *ngIf="deleteSuccessMsg"><h1 class="text-center text-success" >{{deleteSuccessMsg}}</h1></div>
+
+
+
+<div *ngIf="!deleteConfirmStatus">
+
+<!-- navbar -->
+<nav style="background-color: #0062A8;" class="navbar navbar-expand-lg navbar-light ">
+  <div class="container-fluid">
+    <!-- <a class="navbar-brand" href="#">
+      <h3 style="color: white;">BankApp</h3>
+    </a> -->
+    <a class="navbar-brand" routerLink="/dashboard"><img style="height: 70px; padding-top:1px;" src="https://logos-download.com/wp-content/uploads/2016/06/Yes_Bank_logo.png" alt=""> </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-5 ms-auto">
+
+        <li class="nav-item dropdown ">
+          <a style="color: white;" class="nav-link dropdown-toggle me-5 " href="#" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Services
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a (click)="getBalance()" class="dropdown-item" href="#" data-bs-toggle="offcanvas"
+                href="#offcanvasExample">Balance Enquiry <i class="fa-solid fa-money-check-dollar"></i></a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Fund Transfer
+                <i class="fa-solid fa-money-bill-transfer"></i></a></li>
+            <li><a routerLink="/transactions" class="dropdown-item" href="#">Transaction History <i
+                  class="fa-solid fa-note-sticky"></i></a></li>
+            <li><a style="cursor: pointer;" (click)="deleteAccount()" class="dropdown-item" >Remove Account <i class="fa-solid fa-trash"></i></a></li>
+            <li><a style="cursor: pointer;" (click)="logOut()" class="dropdown-item">Logout <i class="fa-solid fa-right-from-bracket"></i></a></li>
+            <!-- <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+          </ul>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+<div style="height: 450px; " class="container text-center" *ngIf="logoutSuccess">
+  <h1>Please wait</h1>
+
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-primary" id="staticBackdropLabel">Fund transfer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form (ngSubmit)="dashboardForm()" [formGroup]="fundTransferForm">
+          <div class=" mb-3">
+            <label for="exampleinputacno1" class="form-label">Credit Account Number</label>
+            <input name="CreditAcno" formControlName="CreditAcno" type="email" class="form-control"
+              id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div
+              *ngIf="this.fundTransferForm.get('CreditAcno')?.errors&&this.fundTransferForm.get('CreditAcno')?.touched"
+              class="text-danger">invalid account number</div>
+
+          </div>
+          <div class=" mb-3">
+            <label for="exampleInputamount" class="form-label">Amount</label>
+            <input name="amount" formControlName="amount" type="email" class="form-control" id="exampleInputamount"
+              aria-describedby="emailHelp">
+            <div *ngIf="this.fundTransferForm.get('amount')?.errors&&this.fundTransferForm.get('amount')?.touched"
+              class="text-danger">invalid Amount</div>
+
+          </div>
+          <div class=" mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input name="password" formControlName="password" type="password" class="form-control"
+              id="exampleInputPassword1">
+            <div *ngIf="this.fundTransferForm.get('password')?.errors&&this.fundTransferForm.get('password')?.touched"
+              class="text-danger">invalid Password</div>
+          </div>
+          <!-- <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div> -->
+
+          <div class="text fw-bolder text-center mx-2">
+            {{transferSuccess}}
+          </div>
+
+          <div  class="text-danger">
+            {{transferError}}
+          </div >
+          <button click="dashboardForm()" type="submit" class="btn btn-primary">Transfer</button>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+        <button (click)="reset()" type="submit" class="btn btn-primary">Reset</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- offcanvas -->
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title text-primary" id="offcanvasExampleLabel">Balance Enquiry</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      <img style="margin-left:5px  ; height: 250px; width: 360px;"
+        src="https://i.pinimg.com/originals/de/80/ca/de80ca4922b016784c86f80ee5c8966f.gif"
+        alt="">
+    </div>
+    <div class="mt-4">
+      <h5>Hey {{user}}</h5>
+      <h6>Your Current Balance : <span class="text-success">{{balance}}</span> </h6>
+    </div>
+    <!-- <div class="dropdown mt-3">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
+          Dropdown button
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </div> -->
+  </div>
+</div>
+
+
+
+<!-- main-content -->
+<div *ngIf="!logoutSuccess" class="container">
+  <div class="row">
+    <div class="col-6 my-5">
+      <!-- image -->
+      <img width="520px" src="https://aiospay.co.in/images/hero/aiospaygif.gif" alt="">
+    </div>
+    <div class="col-6 my-5">
+      <!-- heading and texts -->
+      <h1>Welcome {{user}}</h1>
+      <p style="text-align: jusfify">Online banking allows you to conduct financial transactions via the Internet.
+        Online banking is also known as Internet banking or web banking. Online banking
+        offers customers almost every service traditionally available through a local branch
+        including deposits, transfers, and online bill payments.</p>
+      <div class="collapse" id="collapseExample">
+        <!-- <div class="card card-body"> -->
+        Online banking , also known as internet banking, e-banking or virtual banking, is. an electronic payment system
+        that enables customers of a bank or other financial institution to. conduct a range of financial transactions
+        through the financial institution's website.
+        <!-- </div> -->
+      </div>
+      <button style="color: #0062A8;" (click)="collapse()" class="btn btn-lg " data-bs-toggle="collapse" data-bs-target="#collapseExample">Read
+        <span *ngIf="!iscollapse">More...</span>
+        <span *ngIf="iscollapse">Less</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Footer -->
+<footer style="background-color: #0062A8;" class="text-center text-lg-start  text-muted">
+  <!-- Section: Social media -->
+  <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block text-light">
+      <span>Get connected with us on social networks:</span>
+    </div>
+    <!-- Left -->
+
+    <!-- Right -->
+    <div>
+      <a href="" class="me-4 text-light">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="" class="me-4 text-light">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="" class="me-4 text-light">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="" class="me-4 text-light">
+        <i class="fab fa-instagram"></i>
+      </a>
+      <a href="" class="me-4 text-light">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a href="" class="me-4 text-light">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </section>
+  <!-- Section: Social media -->
+
+  <!-- Section: Links  -->
+  <section class="">
+    <div class="container text-center text-md-start mt-5 text-light">
+      <!-- Grid row -->
+      <div class="row mt-3">
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+          <!-- Content -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            <i class="fas fa-gem me-3"></i>Yes Bank
+          </h6>
+          <p>
+            The business of protecting money for others. Banks lend this money, generating interest 
+            that creates profits for the bank and its customers. A bank is a financial institution 
+            licensed to accept deposits and make loans. But they may also perform other financial services.
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            About Us
+          </h6>
+          <p>
+            <a style="text-decoration: none;" href="#!" class="text-reset">Overview</a>
+          </p>
+          <p>
+            <a style="text-decoration: none;" href="#!" class="text-reset">Careers</a>
+          </p>
+          <p>
+            <a style="text-decoration: none;" href="#!" class="text-reset">Link to ODR Portal</a>
+          </p>
+          <p>
+            <a style="text-decoration: none;" href="#!" class="text-reset">Shareholders Info</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">
+            Useful links
+          </h6>
+          <p>
+            <a style="text-decoration: none;" href="#!" class="text-reset">Penal Charges</a>
+          </p>
+          <p>
+            <a style="text-decoration: none;" href="#!" class="text-reset">Privacy</a>
+          </p>
+          <p>
+            <a style="text-decoration: none;" href="#!" class="text-reset">Quick links</a>
+          </p>
+          <p>
+            <a style="text-decoration: none;" href="#!" class="text-reset">Citizen Charter</a>
+          </p>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <!-- Links -->
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p><i class="fas fa-home me-3"></i> Delhi, NY 10012, India</p>
+          <p>
+            <i class="fas fa-envelope me-3"></i>
+            yesbank@example.com
+          </p>
+          <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+          <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+  </section>
+  <!-- Section: Links  -->
+
+  <!-- Copyright -->
+  <div class="text-center text-light p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2023 Copyright:
+    <a class="text-light fw-bold" href="https://mdbootstrap.com/">Yesbank.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->

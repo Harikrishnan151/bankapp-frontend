@@ -1,0 +1,101 @@
+<!-- navbar -->
+<nav style="background-color: #0062A8;" class="navbar navbar-light ">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <!-- <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24"
+        class="d-inline-block align-text-top">
+     <span style="color: white;">BankApp</span>  -->
+     <a class="navbar-brand" href="#"><img style="height: 70px; padding-top:1px;" src="https://logos-download.com/wp-content/uploads/2016/06/Yes_Bank_logo.png" alt=""> </a>
+    </a>
+  </div>
+</nav>
+
+ <!-- //register landing page -->
+<div *ngIf="RegisterSuccess" class="container text-center my-5 p-5">
+  <h1>Your Data getting registered...please wait...<div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div></h1>
+
+</div>
+
+
+
+
+<div *ngIf="!RegisterSuccess" class="container">
+  <div class="row my-4">
+    <div class="col-6 mt-2">
+      <img style="width: 500px; height: 500px; margin-left: 60px;" src="https://qrcrypher.com/frontend/images/Mobile%20login.gif" alt="">
+    </div>
+    <div class="col-6">
+      <div class="col-6 my-2">
+        <div class="card my-3">
+           <form (ngSubmit)="register()" [formGroup]="registerForm">
+          <h3 style="font-weight: 900; color: #0062A8;" class="text-center">Register Here</h3>
+          <div class=" my-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input name="username" formControlName="username" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div *ngIf="this.registerForm.get('username')?.errors&&this.registerForm.get('username')?.touched" class="text-danger">*invalid Username</div>
+          </div>
+
+          <div class="mb-1">
+            <label for="exampleInputPassword2" class="form-label">Account Number</label>
+            <input name="acno" formControlName="acno" type="text" class="form-control" id="exampleInputPassword2">
+            <div *ngIf="this.registerForm.get('acno')?.errors&&this.registerForm.get('acno')?.touched" class="text-danger">*invalid Account number</div>
+          </div>
+          <div class="mb-1">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input name="password" formControlName="password"   type="password" class="form-control" id="exampleInputPassword1">
+            <div *ngIf="this.registerForm.get('password')?.errors&&this.registerForm.get('password')?.touched" class="text-danger">*invalid Password</div>
+          </div>
+          <div class="mb-4 form-check">
+            <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
+            <!-- <label class="form-check-label" for="exampleCheck1">Check me out</label> -->
+          </div>
+           <h4 class="text-danger">{{RegisterError}}</h4>
+          <button style="margin-left: 160px;"  type="submit" class="btn btn-primary">Submit</button>
+          <br>
+          <div class="reg">
+            <span>Are You Existing Customer?</span><span class="reg"><a routerLink="/">Login Here</a></span>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- footer -->
+<footer style="background-color: #0062A8;" class="bg-primary text-center text-white">
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: Social media -->
+    <section class="mb-4">
+      <!-- Facebook -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+
+      <!-- Twitter -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+
+      <!-- Google -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+
+      <!-- Instagram -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+
+      <!-- Linkedin -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+
+      <!-- Github -->
+      <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-github"></i></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2023 Copyright:
+    <a class="text-white" href="https://mdbootstrap.com/">Yesbank.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>

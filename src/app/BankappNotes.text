@@ -1,0 +1,73 @@
+1.create project - ng new bankapp-fontend
+2.cd bankapp-frontend
+3. code .
+4.run project - ng serve --open
+5.clear the code in app.component.html
+6.install thirdparty apps (bootstrap,fontawsome)
+   
+   1.bootsrap- copy and paste bootstrap link
+   2.fontawsome - copy and paste cdnjs link in index.html
+   3.google fonts - copy and paste google fonts link from
+
+7.create components
+     ->Register - ng g c register
+     ->Login - ng g c login
+     ->Dashboard - ng g c dashboard
+     ->Transactions - ng g c transactions
+     ->PageNotFound - ng g c pageNotFound
+
+8. path set up 
+     set up path for each component in app-routing-module.ts
+                     
+    const routes: Routes = [
+     {//login - localhost//4200 - loginpage
+    path:'',component:LoginComponent
+    },
+    {//register - localhost//4200/register
+    path:'register',component:RegisterComponent
+   },
+    {//dashboard - localhost//4200/dashboard
+     path:'dashboard',component:DashboardComponent
+     },
+    {//transactions - localhost//4200/transactions
+      path:'transactions',component:TransactionsComponent
+     },
+     { //pagenotfound - localhost//4200/pagenotfound
+      path:'**',component:PageNotFoundComponent
+     }
+       ];
+ 
+ 9.    use <router-outlet></router-outlet> in app.component.html
+
+10.   design pages
+
+11.    reactive forms
+     
+     Reactive forms provide a model-driven approach to handling form  inputs whose values change over time.
+     Reactive forms are built around observable streams, where form inputs and values are provided as streams
+     of input values, which can be accessed synchronously.
+    
+
+    ->app.module.ts
+
+    import{ ReactiveForModules} from '@angular/forms';
+
+    @NgModule({
+
+         imports : [
+          //otherimports
+          ReactiveFormsMdule
+         ],
+    })
+    export class appmodule{ }
+    ->FormGroup - ts
+    ->FormArray - ts
+    ->FormControl - html
+   
+    FormBuilder 
+    The FormBuilder provides syntactic sugar that shortens creating instances of a FormControl,
+     FormGroup, or FormArray.It reduces the amount of boilerplate needed to build complex forms.
+     
+     FormGroup - ts
+     Constructs a new FormGroup instance. Accepts a single generic argument, which is an object 
+     containing all the keys and corresponding inner control types

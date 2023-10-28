@@ -1,0 +1,45 @@
+<div class="container">
+    <h1 style="color: #0062A8; font-weight: 900;" class=" text-center mt-4">Transaction History</h1>
+    <div class="row mt-5">
+        <div  class="col-6">
+            
+                <input [(ngModel)]="searchTerm" style="border: 1px solid black; width: 600px;" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+             
+        </div>
+        <div class="col-6">
+            <button (click)="generatePdf()" class="btn btn-outline-primary" style="float: right; height: 40px; "> Export to PDF</button>
+        </div>
+        
+
+    </div>
+
+    <div class="row-table m-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">From Account</th>
+                    <th scope="col">To Account</th>
+                    <th scope="col">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-active" *ngFor="let trans of transactions |search:searchTerm:'type'; let i=index ">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{trans.type}}</td>
+                    <td>{{trans.fromAcno}}</td>
+                    <td>{{trans.toAcno}}</td>
+                    <td>{{trans.amount}}</td>
+                </tr>
+              
+            </tbody>
+        </table>
+    </div>
+
+
+    <button routerLink="/dashboard" class="btn btn-primary my-4">Back</button>
+  
+</div>
+

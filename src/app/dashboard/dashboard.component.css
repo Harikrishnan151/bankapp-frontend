@@ -1,0 +1,15 @@
+*{
+    font-weight: 600;
+    
+}
+.icons{
+    font-size: 30px;
+    font-weight: 600;
+    color: white;
+    /* padding-top: 10px; */
+    font-family: 'Noto Sans Vithkuqi', sans-serif;
+}
+.dropdown-item:hover{
+   color: white;
+   background-color: #0062A8;;
+}
